@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   
+    <title>RealTimeChat</title>
+
+</head>
+
+<body>
+    <div id="name">
+        <input type="text" id="inputname">
+        <button id="sub">Click me</button>
+    </div>
+
+    <div id="chatBox" style="display: none;">
+        <h2 class="text-center"> Chat Box Real Time</h2>
+        <div class="container">
+            <pre id="messages" class= "overflow-auto d-block" style="height: 500px;"></pre>
+            <input type="text" id="messageBox" placeholder="Type your message here"
+                style="display: block; width: 100%; margin-bottom: 10px; padding: 10px;" />
+            <button id="sendMess" title="Send Message!" style="width: 100%; height: 30px;" class="btn btn-primary">Send Message</button>
+        </div>
+    </div>
+    <script>
+        const divName = document.getElementById("name");
+        const inputName = document.getElementById("inputname");
+        const sub = document.getElementById("sub");
+        const chatBox = document.getElementById("chatBox");
+
+        window.onload = function() {
+            sub.addEventListener("click", (e) => {
+                if (inputName.value != "") {
+                    divName.style.display = "none";
+                    chatBox.style.display = "block";
+                } else {
+                    e.preventDefault();
+                }
+            });
+
+            (function () {
+                const sendBtn = document.querySelector('#sendMess');
+                const messages = document.querySelector('#messages');
+                const messageBox = document.querySelector('#messageBox');
+
+                let ws;
+                function init() {
+                    if (ws) {
+                        ws.onerror = ws.onopen = ws.onclose = null;
+                        ws.close();
+                    }
+
+                    ws = new WebSocket('ws://localhost:6969');
+                    ws.onopen = () => {
+                        console.log('Connection opened!');
+                    }
+                    ws.onmessage = ({data}) => displayMess(data);
+                    ws.onclose = function () {
+                        ws = null;
+                    }
+                }
+                async function  displayMess(message) {
+                    const data = await new Response(message).text();
+                    var name =  data.split(':')[0];
+                    var mgs =  data.split(':')[1];
+                    messages.textContent += `\n\n ${name}: ${mgs}`;
+                    messages.scrollTop = messages.scrollHeight;
+                    messageBox.value = '';
+                }
+
+                
+
+                sendBtn.onclick = () => {
+                    if (!ws) {
+                        displayMess('No WebSocket connection :<');
+                        return;
+                    }
+                    else {
+                        mess = `${inputName.value}:${messageBox.value}`
+                        ws.send(mess);
+                        displayMess(mess);
+                    }
+                }
+
+                init();
+            })();
+        }
+
+    </script>
+
+</body>
+
+</html>

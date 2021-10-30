@@ -9,7 +9,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-   
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="Style/style.css">
     <title>RealTimeChat</title>
 
 </head>
@@ -19,15 +22,49 @@
         <input type="text" id="inputname">
         <button id="sub">Click me</button>
     </div>
+    <div class="bodychat">
+        <div class="wrapper">
+            <div class="chatBoxarea">
+                <div class=" chatBox" id="chatBox" style="display: none;">
+                    <div class="container">
+                        
+                        <div id="messages" style="height: 500px;">
+                    <h2 class="text-center">Box Chat Social</h2>
 
-    <div id="chatBox" style="display: none;">
-        <h2 class="text-center"> Chat Box Real Time</h2>
-        <div class="container">
-            <pre id="messages" class= "overflow-auto d-block" style="height: 500px;"></pre>
-            <input type="text" id="messageBox" placeholder="Type your message here"
-                style="display: block; width: 100%; margin-bottom: 10px; padding: 10px;" />
-            <button id="sendMess" title="Send Message!" style="width: 100%; height: 30px;" class="btn btn-primary">Send Message</button>
+                            <ul id="listMess">
+
+                                <!-- <li class="listMessItem">
+                        <span class="messItemName">Hieu</span>:<span class="messItemData">Hello World</span>
+                    </li>
+                    <li class="listMessItem">
+                        <span class="messItemName">Hieu</span>:<span class="messItemData">Hello World</span>
+                    </li>
+                    <li class="listMessItem">
+                        <span class="messItemName">Hieu</span>:<span class="messItemData">Hello World</span>
+                    </li>
+                    <li class="listMessItem">
+                        <span class="messItemName">Hieu</span>:<span class="messItemData">Hello World</span>
+                    </li> -->
+                            </ul>
+                           
+                        </div>
+                        <div class="inputtext">
+                            <input type="text" id="messageBox" placeholder="Type your message here" />
+                            <button id="sendMess"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-cursor-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103z" />
+                                </svg></i>
+                            </button>
+                        </div>
+                        <!-- <pre id="messages" class= "overflow-auto d-block" style="height: 500px;"></pre> -->
+
+                        
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
     </div>
     <script>
         const divName = document.getElementById("name");
@@ -35,7 +72,7 @@
         const sub = document.getElementById("sub");
         const chatBox = document.getElementById("chatBox");
 
-        window.onload = function() {
+        window.onload = function () {
             sub.addEventListener("click", (e) => {
                 if (inputName.value != "") {
                     divName.style.display = "none";
@@ -49,6 +86,7 @@
                 const sendBtn = document.querySelector('#sendMess');
                 const messages = document.querySelector('#messages');
                 const messageBox = document.querySelector('#messageBox');
+                const listMess = document.querySelector('#listMess');
 
                 let ws;
                 function init() {
@@ -61,21 +99,33 @@
                     ws.onopen = () => {
                         console.log('Connection opened!');
                     }
-                    ws.onmessage = ({data}) => displayMess(data);
+                    ws.onmessage = ({ data }) => displayMess(data);
                     ws.onclose = function () {
                         ws = null;
                     }
                 }
-                async function  displayMess(message) {
+                async function displayMess(message) {
                     const data = await new Response(message).text();
-                    var name =  data.split(':')[0];
-                    var mgs =  data.split(':')[1];
-                    messages.textContent += `\n\n ${name}: ${mgs}`;
+                    var name = data.split(':')[0];
+                    var mgs = data.split(':')[1];
+                    if (inputName.value == name) {
+                        var itemMess = `<li class="listMessItem fRight">
+                                            <span class="messItemName"></span><span class="messItemData">${mgs}</span>
+                                        </li>`;
+                        listMess.innerHTML = listMess.innerHTML + itemMess;
+                    } else {
+                        var itemMess = `
+                                        <li class="listMessItem fLeft">
+                                        <span class="mmessItemName" >${name}</span><span class="messItemData">${mgs}</span>
+                                        </li>`;
+                        listMess.innerHTML = listMess.innerHTML + itemMess;
+                    }
+                    //messages.textContent += `\n\n ${name}: ${mgs}`;
                     messages.scrollTop = messages.scrollHeight;
                     messageBox.value = '';
                 }
 
-                
+
 
                 sendBtn.onclick = () => {
                     if (!ws) {

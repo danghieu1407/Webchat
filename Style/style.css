@@ -1,0 +1,104 @@
+
+.chatBox{
+   
+    width: 500px;
+	height: 500px;
+    /* display: flex; */
+    align-items: center;
+    padding: 10px 30px 20px 30px;
+    box-shadow:  inset 0 32px 32px -32px rgb(0, 0,0/5%),
+                inset 0 32px 32px -32px rgb(0, 0,0/5%);
+    margin :15px 0;
+    border-spacing: 10px;
+    position: relative;
+    word-wrap: break-word;   
+
+    
+
+}
+
+
+ul {
+    list-style-type: none;
+}
+li{
+    margin: 2px 0;
+}
+#messages{
+    height: 100px;
+    overflow-y: auto;
+    border: 1px solid;
+    border-radius: 7px;
+    color: #ccc;
+    word-wrap: break-word;   
+    position: relative;
+}
+:is(message)::-webkit-scrollbar{
+    width: 0px;
+}
+
+.fLeft {
+    width: 100px;
+    float: left;
+    clear: both;
+    display: inline-block;
+    align-items: flex-end;
+    background: aliceblue;
+    color:#333 ;
+    margin-right: auto;
+    
+   
+    padding: 8px 16px;
+    border-radius: 18px 18px 18px 0px;
+    word-wrap: break-word;   
+    word-break: break-word;
+}
+
+.fRight {
+    width: 100px;
+    
+    float: right;
+    clear: both;
+    display: flex;
+    background: #333;
+    color: aliceblue;
+    padding: 8px 16px;
+    border-radius: 18px 18px 0px 18px;
+    
+    margin-left: auto;
+    word-wrap: break-word;   
+    word-break: break-word;
+}
+
+
+ .inputtext{
+    display: grid;
+    height: 45px;
+    width: 100%;
+    font-size: 17px;
+    border: 1px 2px solid;
+    padding: 0px;
+    border-radius: 5px;
+    float: left;
+    grid-template-columns: 80% 20%;
+    /* position: absolute;
+    top: -100%; */
+  
+
+} 
+.sendMess{
+    float: right;
+   
+}
+.chatBoxarea{
+    height: 600px;
+    width: 200px;
+}
+#messageBox{
+    flex-shrink: 1;
+    width: 100%;
+}
+h2{
+    color: blue;
+    background-color: #333;
+}

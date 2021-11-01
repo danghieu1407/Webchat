@@ -37,25 +37,13 @@ li{
     width: 0px;
 }
 
-.fLeft {
-    width: 100px;
-    float: left;
-    clear: both;
-    display: inline-block;
-    align-items: flex-end;
-    background: aliceblue;
-    color:#333 ;
-    margin-right: auto;
-    
-   
-    padding: 8px 16px;
-    border-radius: 18px 18px 18px 0px;
-    word-wrap: break-word;   
-    word-break: break-word;
+.listMessItem{
+    display: block;
+    width: 100%;
 }
 
 .fRight {
-    width: 100px;
+    max-width: 280px;
     
     float: right;
     clear: both;
@@ -69,7 +57,9 @@ li{
     word-wrap: break-word;   
     word-break: break-word;
 }
-
+.listMessItem.fRight{
+    width: fit-content;
+}
 
  .inputtext{
     display: grid;
@@ -101,4 +91,33 @@ li{
 h2{
     color: blue;
     background-color: #333;
+}
+.messItemName1{
+    float: left;
+    color: red;
+    display: block;
+    width: inherit;
+}
+
+.messItemData1{
+    max-width: 280px;
+    float: left;
+    clear: both;
+    display: flex;
+    align-items: flex-end;
+    background: aliceblue;
+    color:#333 ;
+    margin-right: auto;
+    
+   
+    padding: 8px 16px;
+    border-radius: 0px 18px 18px 18px;
+    word-wrap: break-word;   
+    word-break: break-word;
+}
+.nontification{
+ text-align: center;
+ margin: auto;
+ color: red;
+ padding: 50px;
 }

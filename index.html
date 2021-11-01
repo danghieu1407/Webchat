@@ -29,31 +29,20 @@
                     <div class="container">
                         
                         <div id="messages" style="height: 500px;">
-                    <h2 class="text-center">Box Chat Social</h2>
+                             <h2 class="text-center">Box Chat Social</h2>
 
                             <ul id="listMess">
+                                <!-- <li ><span class="nontification">---------Daehyeu has Joined---------</span></li> -->
 
-                                <!-- <li class="listMessItem">
-                        <span class="messItemName">Hieu</span>:<span class="messItemData">Hello World</span>
-                    </li>
-                    <li class="listMessItem">
-                        <span class="messItemName">Hieu</span>:<span class="messItemData">Hello World</span>
-                    </li>
-                    <li class="listMessItem">
-                        <span class="messItemName">Hieu</span>:<span class="messItemData">Hello World</span>
-                    </li>
-                    <li class="listMessItem">
-                        <span class="messItemName">Hieu</span>:<span class="messItemData">Hello World</span>
-                    </li> -->
+                        
                             </ul>
                            
                         </div>
                         <div class="inputtext">
                             <input type="text" id="messageBox" placeholder="Type your message here" />
-                            <button id="sendMess"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-cursor-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103z" />
+                            <button id="sendMess" disabled>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cursor-fill" viewBox="0 0 16 16">
+                                    <path d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103z" />
                                 </svg></i>
                             </button>
                         </div>
@@ -67,27 +56,19 @@
     </div>
     </div>
     <script>
-        const divName = document.getElementById("name");
-        const inputName = document.getElementById("inputname");
-        const sub = document.getElementById("sub");
-        const chatBox = document.getElementById("chatBox");
-
         window.onload = function () {
-            sub.addEventListener("click", (e) => {
-                if (inputName.value != "") {
-                    divName.style.display = "none";
-                    chatBox.style.display = "block";
-                } else {
-                    e.preventDefault();
-                }
-            });
+            const divName = document.getElementById("name");
+            const inputName = document.getElementById("inputname");
+            const sub = document.getElementById("sub");
+            const chatBox = document.getElementById("chatBox");
+            const sendBtn = document.querySelector('#sendMess');
+            const messages = document.querySelector('#messages');
+            const messageBox = document.querySelector('#messageBox');
+            const listMess = document.querySelector('#listMess');
+            const nontification = document.querySelector('#nontification');
+            
 
             (function () {
-                const sendBtn = document.querySelector('#sendMess');
-                const messages = document.querySelector('#messages');
-                const messageBox = document.querySelector('#messageBox');
-                const listMess = document.querySelector('#listMess');
-
                 let ws;
                 function init() {
                     if (ws) {
@@ -108,23 +89,25 @@
                     const data = await new Response(message).text();
                     var name = data.split(':')[0];
                     var mgs = data.split(':')[1];
-                    if (inputName.value == name) {
+                    if (mgs == 'join') {
+                        var itemMess = `<li ><span class="nontification">---------${name} has Joined---------</span></li>`
+                        listMess.innerHTML = listMess.innerHTML + itemMess;
+                    } else if (inputName.value == name) {
                         var itemMess = `<li class="listMessItem fRight">
                                             <span class="messItemName"></span><span class="messItemData">${mgs}</span>
                                         </li>`;
                         listMess.innerHTML = listMess.innerHTML + itemMess;
                     } else {
                         var itemMess = `
-                                        <li class="listMessItem fLeft">
-                                        <span class="mmessItemName" >${name}</span><span class="messItemData">${mgs}</span>
-                                        </li>`;
+                        <li class="listMessItem">
+                            <span class="messItemName1">${name}</span><span class="messItemData1">${mgs}</span>
+                                </li>`;
                         listMess.innerHTML = listMess.innerHTML + itemMess;
                     }
                     //messages.textContent += `\n\n ${name}: ${mgs}`;
                     messages.scrollTop = messages.scrollHeight;
                     messageBox.value = '';
                 }
-
 
 
                 sendBtn.onclick = () => {
@@ -138,6 +121,49 @@
                         displayMess(mess);
                     }
                 }
+
+                document.addEventListener("keypress", (e) => {
+                    if (e.keyCode == 13) {
+                        if (messageBox.value != '' && messageBox === document.activeElement) {
+                            if (!ws) {
+                                displayMess('No WebSocket connection :<');
+                                return;
+                            }
+                            else {
+                                mess = `${inputName.value}:${messageBox.value}`
+                                ws.send(mess);
+                                displayMess(mess);
+                            }
+                        }
+                    }
+                });
+
+                sub.addEventListener("click", (e) => {
+                    if (inputName.value != "") {
+                        divName.style.display = "none";
+                        chatBox.style.display = "block";
+                        if (!ws) {
+                            displayMess('No WebSocket connection :<');
+                            return;
+                        }
+                        else {
+                            mess = `${inputName.value}:join`
+                            ws.send(mess);
+                            displayMess(mess);
+                        }
+                    } else {
+                        e.preventDefault();
+                    }
+                });
+    
+                messageBox.addEventListener("keyup", () => {
+                    if (messageBox.value == '') {
+                        sendBtn.disabled = true;
+                    }
+                    else {
+                        sendBtn.disabled = false;
+                    }
+                });
 
                 init();
             })();

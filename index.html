@@ -107,6 +107,8 @@
                     //messages.textContent += `\n\n ${name}: ${mgs}`;
                     messages.scrollTop = messages.scrollHeight;
                     messageBox.value = '';
+                    sendBtn.disabled = true;
+
                 }
 
 
@@ -159,9 +161,12 @@
                 messageBox.addEventListener("keyup", () => {
                     if (messageBox.value == '') {
                         sendBtn.disabled = true;
+                        console.log('hiu');
                     }
                     else {
                         sendBtn.disabled = false;
+                        console.log('hiudtrai');
+
                     }
                 });
 

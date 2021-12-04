@@ -18,37 +18,43 @@
 </head>
 
 <body>
+
     <div id="name">
-        <input type="text" id="inputname">
-        <button id="sub">Click me</button>
+        <div class="form-group input-group mb-lg-3 col-lg-4">
+            <span class="input-group-text" id="basic-addon1">Input Name Before Chat</span>
+            <input class="form-control" type="text" id="inputname">
+            <button class="btn btn-success" id="sub">Enter</button>
+        </div>
     </div>
     <div class="bodychat">
         <div class="wrapper">
             <div class="chatBoxarea">
                 <div class=" chatBox" id="chatBox" style="display: none;">
                     <div class="container">
-                        
+
                         <div id="messages" style="height: 500px;">
-                             <h2 class="text-center">Box Chat Social</h2>
+                            <h2 class="text-center">Box Chat Social</h2>
 
                             <ul id="listMess">
                                 <!-- <li ><span class="nontification">---------Daehyeu has Joined---------</span></li> -->
 
-                        
+
                             </ul>
-                           
+
                         </div>
                         <div class="inputtext">
                             <input type="text" id="messageBox" placeholder="Type your message here" />
                             <button id="sendMess" disabled>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cursor-fill" viewBox="0 0 16 16">
-                                    <path d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103z" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-cursor-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103z" />
                                 </svg></i>
                             </button>
                         </div>
                         <!-- <pre id="messages" class= "overflow-auto d-block" style="height: 500px;"></pre> -->
 
-                        
+
                     </div>
                 </div>
             </div>
@@ -66,7 +72,7 @@
             const messageBox = document.querySelector('#messageBox');
             const listMess = document.querySelector('#listMess');
             const nontification = document.querySelector('#nontification');
-            
+
 
             (function () {
                 let ws;
@@ -157,7 +163,7 @@
                         e.preventDefault();
                     }
                 });
-    
+
                 messageBox.addEventListener("keyup", () => {
                     if (messageBox.value == '') {
                         sendBtn.disabled = true;

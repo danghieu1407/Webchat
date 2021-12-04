@@ -121,3 +121,10 @@ h2{
  color: red;
  padding: 50px;
 }
+#name{
+    display: flex;
+    margin: auto;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}

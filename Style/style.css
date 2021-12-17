@@ -1,67 +1,63 @@
-
-.chatBox{
-   
+.chatBox {
     width: 500px;
-	height: 500px;
+    height: 500px;
     /* display: flex; */
     align-items: center;
     padding: 10px 30px 20px 30px;
-    box-shadow:  inset 0 32px 32px -32px rgb(0, 0,0/5%),
-                inset 0 32px 32px -32px rgb(0, 0,0/5%);
-    margin :15px 0;
+    box-shadow: inset 0 32px 32px -32px rgb(0, 0, 0/5%), inset 0 32px 32px -32px rgb(0, 0, 0/5%);
+    margin: 15px 0;
     border-spacing: 10px;
     position: relative;
-    word-wrap: break-word;   
-
-    
-
+    word-wrap: break-word;
 }
-
 
 ul {
     list-style-type: none;
 }
-li{
+
+li {
     margin: 2px 0;
 }
-#messages{
+
+#messages {
     height: 100px;
     overflow-y: auto;
     border: 1px solid;
     border-radius: 7px;
     color: #ccc;
-    word-wrap: break-word;   
+    word-wrap: break-word;
     position: relative;
 }
-:is(message)::-webkit-scrollbar{
+
+:is(message)::-webkit-scrollbar {
     width: 0px;
 }
 
-.listMessItem{
+.listMessItem {
     display: block;
     width: 100%;
 }
 
 .fRight {
     max-width: 280px;
-    
     float: right;
     clear: both;
     display: flex;
-    background: #333;
+    background: #e43a3a;
     color: aliceblue;
     padding: 8px 16px;
     border-radius: 18px 18px 0px 18px;
-    
+    margin-right: 20px;
     margin-left: auto;
-    word-wrap: break-word;   
+    word-wrap: break-word;
     word-break: break-word;
 }
-.listMessItem.fRight{
+
+.listMessItem.fRight {
     width: fit-content;
 }
 
- .inputtext{
+.inputtext {
     display: grid;
     height: 45px;
     width: 100%;
@@ -73,61 +69,72 @@ li{
     grid-template-columns: 80% 20%;
     /* position: absolute;
     top: -100%; */
-  
-
-} 
-.sendMess{
-    float: right;
-   
 }
-.chatBoxarea{
+
+.sendMess {
+    float: right;
+}
+
+.chatBoxarea {
     height: 600px;
     width: 200px;
 }
-#messageBox{
+
+#messageBox {
     flex-shrink: 1;
     width: 100%;
 }
-h2{
+
+h2 {
     color: blue;
-    background-color: #333;
-}
-.messItemName1{
-    float: left;
-    color: red;
-    display: block;
-    width: inherit;
+    background-color: #eb4343;
 }
 
-.messItemData1{
+.messItemName1 {
+    float: left;
+    color: #fa001894;
+    display: block;
+    width: inherit;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+}
+
+.messItemData1 {
     max-width: 280px;
     float: left;
     clear: both;
     display: flex;
     align-items: flex-end;
     background: aliceblue;
-    color:#333 ;
+    color: #333;
     margin-right: auto;
-    
-   
     padding: 8px 16px;
     border-radius: 0px 18px 18px 18px;
-    word-wrap: break-word;   
+    word-wrap: break-word;
     word-break: break-word;
 }
-.nontification{
- text-align: center;
- margin: auto;
- color: red;
- padding: 50px;
+
+.nontification {
+    text-align: center;
+    margin: auto;
+    color: rgb(234 104 104 / 52%);
+    padding: 50px;
 }
-#name{
+
+#name {
     display: flex;
     margin: auto;
     align-items: center;
     flex-wrap: nowrap;
     flex-direction: column;
 }
-#titleboxchat{
-    color: yellow;
+
+#titleboxchat {
+    color: #efe81dd1;
+}
+
+.chatBoxarea {
+    margin: auto;
+    width: 30%;
 }

@@ -82,7 +82,7 @@
                         ws.close();
                     }
 
-                    ws = new WebSocket('ws://localhost:6969');
+                    ws = new WebSocket('http://localhost:6969');
                     ws.onopen = () => {
                         console.log('Connection opened!');
                     }
